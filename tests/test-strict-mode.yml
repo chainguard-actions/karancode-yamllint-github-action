@@ -1,0 +1,30 @@
+name: Test strict mode turns warnings into errors
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - id: action-strict
+        uses: .
+        continue-on-error: true
+        with:
+          yamllint_file_or_dir: tests/fixtures/strict/no-doc-start.yaml
+          yamllint_strict: '1'
+          yamllint_config_filepath: tests/fixtures/configs/warn-doc-start.yaml
+
+      - name: Assert strict mode caused failure on warning
+        env:
+          OUTCOME: ${{ steps.action-strict.outcome }}
+          OUTPUT: ${{ steps.action-strict.outputs.yamllint_output }}
+        run: |
+          echo "outcome: $OUTCOME"
+          echo "yamllint_output: '$OUTPUT'"
+          if [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: strict mode correctly turned warning into error"
+          else
+            echo "FAIL: expected strict mode to fail on warning but got outcome '$OUTCOME'"
+            exit 1
+          fi

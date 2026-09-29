@@ -1,0 +1,27 @@
+name: Test basic valid YAML linting
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - id: action
+        uses: .
+        with:
+          yamllint_file_or_dir: tests/fixtures/valid/good.yaml
+          yamllint_config_filepath: tests/fixtures/configs/default-relaxed.yaml
+
+      - name: Assert action succeeded with valid YAML
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+          OUTPUT: ${{ steps.action.outputs.yamllint_output }}
+        run: |
+          echo "outcome: $OUTCOME"
+          echo "yamllint_output: '$OUTPUT'"
+          if [ "$OUTCOME" != "success" ]; then
+            echo "FAIL: expected action to succeed on valid YAML but got outcome '$OUTCOME'"
+            exit 1
+          fi
+          echo "PASS: action completed successfully with valid YAML"
