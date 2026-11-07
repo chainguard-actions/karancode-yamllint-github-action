@@ -6,9 +6,9 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 ## Versions
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v3.0.0 | [`v3.0.0`](https://github.com/chainguard-actions/karancode-yamllint-github-action/tree/v3.0.0) | [`4052d36`](https://github.com/karancode/yamllint-github-action/commit/4052d365f09b8d34eb552c363d1141fd60e2aeb2) |
+| Version | Tag | Upstream commit | Hardening report |
+|---------|-----|-----------------|------------------|
+| v3.0.0 | [`v3.0.0`](https://github.com/chainguard-actions/karancode-yamllint-github-action/tree/v3.0.0) | [`4052d36`](https://github.com/karancode/yamllint-github-action/commit/4052d365f09b8d34eb552c363d1141fd60e2aeb2) | [`HARDENING.md`](https://github.com/chainguard-actions/karancode-yamllint-github-action/blob/v3.0.0/HARDENING.md) |
 
 ## Privacy
 
